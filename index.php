@@ -1,3 +1,22 @@
+<?php
+$dbms='mysql';     
+$host='localhost'; 
+$dbName='gocar';    
+$user='root';     
+$pass='rootpswd';          
+$dsn="$dbms:host=$host;dbname=$dbName";
+
+try {
+    $pdo = new PDO($dsn, $user, $pass); 
+    echo "資料庫連線成功<br>";
+ 
+    // $dbh = null;
+} catch (PDOException $e) {
+    die ("Error!: " . $e->getMessage() . "<br/>");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,16 +32,19 @@
 	記事本：<input type="text" name="notebook">15/本<br>
 	像皮擦：<input type="text" name="eraser">10/個<br>
 	墊板 (特定商品)：<input type="text" name="pad">15/個<br>
-	<input type="submit" value="結帳">
+	<input type="submit" value="結帳" name="dosubmit">
 	</form>
 	<hr>
 	<?php
 		spl_autoload_register(function ($class) {
 			include $class . '.class.php';
 		});
-
-		$prod =  new Product();
-		echo $prod->name;
+		if(isset($_POST['dosubmit'])){
+			// print_r($_POST);exit;
+			// echo "dosubmit";exit;
+		}
+		// $prod =  new Product();
+		// echo $prod->getProducts($pdo);
 	?>
 訂單滿 X 元折 Z % <br>
 特定商品滿 X 件折 Y 元 <br>
